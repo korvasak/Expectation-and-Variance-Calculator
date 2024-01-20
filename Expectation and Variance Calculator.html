@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expectation and Variance Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            margin: 20px;
+            position: relative;
+        }
+
+        #calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            margin: 0 auto;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .result p {
+            margin: 5px 0;
+        }
+
+        #infoButton, #contactButton {
+            position: fixed;
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        #infoButton {
+            top: 10px;
+            left: 10px;
+        }
+
+        #contactButton {
+            top: 10px;
+            right: 10px;
+        }
+
+        #infoContainer, #contactContainer {
+            display: none;
+            position: fixed;
+            top: 0;
+            height: 100%;
+            width: 200px;
+            background-color: #2196F3;
+            padding: 20px;
+            color: #fff;
+            z-index: 2;
+        }
+
+        #infoContent, #contactContent {
+            max-width: 160px;
+            margin: 0 auto;
+        }
+
+        #infoModal, #contactModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="calculator">
+    <h2>Expectation and Variance Calculator</h2>
+
+    <div id="inputFields">
+        <!-- İlk giriş alanı -->
+        <label for="value1">Value 1:</label>
+        <input type="number" id="value1" placeholder="Enter value" required>
+
+        <label for="prob1">Probability 1:</label>
+        <input type="number" id="prob1" placeholder="Enter probability" required>
+    </div>
+
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="newCalculation()">New</button>
+    <button onclick="addNewInput()">+</button>
+    <button onclick="removeLastInput()">-</button>
+
+    <div id="results" class="result">
+        <!-- Sonuçlar burada gösterilecek -->
+    </div>
+</div>
+
+<button id="infoButton" onclick="toggleInfo()">Info</button>
+<button id="contactButton" onclick="toggleContact()">Contact</button>
+
+<div id="infoContainer">
+    <div id="infoContent">
+        <h3>About this Calculator</h3>
+        <p>This calculator helps you calculate the Expectation and Variance of a set of values and their probabilities.</p>
+        <p>Expectation (E[W]) is the average value, Expectation of Squared Values (E[W^2]) is the average of squared values, and Variance (Var[W]) is a measure of the spread of the values.</p>
+        <p>Use the input fields to enter values and their probabilities, then click "Calculate" to get the results.</p>
+        <p>You can add or remove input fields as needed using the "+" and "-" buttons.</p>
+    </div>
+</div>
+
+<div id="infoModal" onclick="toggleInfo()"></div>
+
+<div id="contactContainer">
+    <div id="contactContent">
+        <h3>Contact Information</h3>
+        <p>Email: ahmeterenokur9@gmail.com</p>
+    </div>
+</div>
+
+<div id="contactModal" onclick="toggleContact()"></div>
+
+<script>
+    var inputCount = 1;  // Başlangıçta 1 giriş alanı var.
+
+    function calculate() {
+        // Hesaplama işlevi
+    }
+
+    function newCalculation() {
+        var inputFields = document.getElementById("inputFields");
+        var resultsDiv = document.getElementById("results");
+
+        for (var i = 1; i <= inputCount; i++) {
+            document.getElementById("value" + i).value = "";
+            document.getElementById("prob" + i).value = "";
+        }
+
+        inputFields.innerHTML = "";  // Giriş alanlarını temizle
+        createInput(inputFields, 1);
+
+        resultsDiv.innerHTML = "";   // Sonuçları temizle
+
+        inputCount = 1;
+    }
+
+    function createInput(inputFields, index) {
+        // createInput fonksiyonu içinde inputFields elementini parametre olarak al
+        // ... (diğer kodlar)
+    }
+
+    function addNewInput() {
+        inputCount++;
+        createInput(document.getElementById("inputFields"), inputCount);
+    }
+
+    function removeLastInput() {
+        if (inputCount > 1) {
+            var inputFields = document.getElementById("inputFields");
+            inputFields.removeChild(inputFields.lastChild);  // Remove Probability input
+            inputFields.removeChild(inputFields.lastChild);  // Remove Probability label
+            inputFields.removeChild(inputFields.lastChild);  // Remove Value input
+            inputFields.removeChild(inputFields.lastChild);  // Remove Value label
+
+            inputCount--;
+        }
+    }
+
+    function toggleInfo() {
+        var infoContainer = document.getElementById("infoContainer");
+        infoContainer.style.display = infoContainer.style.display === "block" ? "none" : "block";
+    }
+
+    function toggleContact() {
+        var contactContainer = document.getElementById("contactContainer");
+        contactContainer.style.display = contactContainer.style.display === "block" ? "none" : "block";
+    }
+
+    // Info ve Contact modallarını kapatmak için
+    window.onclick = function(event) {
+        var infoContainer = document.getElementById("infoContainer");
+        var infoModal = document.getElementById("infoModal");
+        var contactContainer = document.getElementById("contactContainer");
+        var contactModal = document.getElementById("contactModal");
+
+        if (event.target !== infoButton && event.target !== infoContainer && event.target !== infoModal) {
+            infoContainer.style.display = "none";
+        }
+
+        if (event.target !== contactButton && event.target !== contactContainer && event.target !== contactModal) {
+            contactContainer.style.display = "none";
+        }
+    };
+</script>
+
+</body>
+</html>
